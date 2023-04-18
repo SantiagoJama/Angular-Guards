@@ -1,0 +1,28 @@
+<main style="height: 100vh;">
+  <section class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-container">
+          <h3 class="alingn-center">Ingreso</h3>
+          <form style="width: 40%;" (ngSubmit)="login( loginForm )"  #loginForm="ngForm" autocomplete="off">
+            <div class="mb-3">
+              <label for="userName" class="form-label">Usuario: </label>
+              <input type="text" class="form-control" id="userName" name="userName" ngModel #userNameCheck="ngModel" placeholder="santiago" required #userName>
+              <span [hidden]="userNameCheck.valid || userNameCheck.pristine " class="text-danger">Debe ingresar un usuario</span>
+            </div>
+            <div class="mb-3">
+              <label for="userPassword" class="form-label">Contraseña:</label>
+              <input type="password" class="form-control" id="userPassword" name = "userPassword" #userPasswordCheck = "ngModel" ngModel placeholder="*************" required>
+              <span [hidden]="userPasswordCheck.valid || userPasswordCheck.pristine " class="text-danger">Debe ingresar una contraseña</span>
+            </div>
+            <div class="submit-button-container">
+              <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Iniciar sesión</button>
+              <span *ngIf="areCredentialsIncorrect" class="text-danger">{{ loginResponse }}</span>
+              <span *ngIf="internalOrServiceProblems" class="text-danger">Problemas con los servicios</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

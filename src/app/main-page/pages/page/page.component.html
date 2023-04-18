@@ -1,0 +1,30 @@
+<main>
+  <div>
+    <h1>Bienvenido {{ userLogged }}</h1>
+  </div>
+  <section>
+    <app-card-menu [cardTitle]="'Clientes'"
+                    [src]="'../../../../assets/clients.png'"
+                    [cardText]="'Ver las actividades por clientes'"
+                    [cardButtonName]="'Ver clientes'">
+    </app-card-menu>
+
+    <app-card-menu  [cardTitle]="'Dashboards'"
+                    [src]="'../../../../assets/dashboard.png'"
+                    [cardText]="'Ver los KPIs'"
+                    [cardButtonName]="'Ver dashboard'">
+    </app-card-menu>
+
+    <app-card-menu  [cardTitle]="'Logistica'"
+                    [src]="'../../../../assets/logistic.png'"
+                    [cardText]="'Ver actividades de envíos'"
+                    [cardButtonName]="'Ver envíos'">
+    </app-card-menu>
+
+    <app-card-menu  [cardTitle]="'Producción'"
+                    [src]="'../../../../assets/production.png'"
+                    [cardText]="'Ver la producción '"
+                    [cardButtonName]="'Ver producción'">
+    </app-card-menu>
+  </section>
+</main>

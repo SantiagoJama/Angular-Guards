@@ -1,0 +1,19 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.general-style{
+  width: 17.9em;
+  height: 13em;
+}
+
+.card-body-general-style{
+  padding: 1em;
+}
+
+.link-global-style{
+  padding: .3em;
+  font-weight: 700;
+}
