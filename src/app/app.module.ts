@@ -13,7 +13,7 @@ import { ParamsPageComponent } from './params-page/pages/params-page.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    ParamsPageComponent
+    ParamsPageComponent,
   ],
   imports: [
     BrowserModule,

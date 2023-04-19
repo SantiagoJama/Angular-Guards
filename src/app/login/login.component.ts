@@ -4,8 +4,9 @@ import { LoginService } from './services/login.service';
 import { loginBodyRequestDTO } from './dtos/loginBodyRequest.dto';
 import { loginResponseDTO } from './dtos/loginResponse.dto';
 import {  Router } from '@angular/router';
-import { LocalStorageServiceService } from '../global-services/local-storage-service.service';
+import { LocalStorageServiceService } from '../global-services/local-storage-service/local-storage.service';
 import { UserLoggedDTO } from '../global-services/dtos/userLoggedData.dto';
+import { SesionStorageService } from '../global-services/sesion-storage-service/sesion-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor( private readonly loginService : LoginService, 
                private readonly router : Router,
-               private readonly localStorageService : LocalStorageServiceService
+               private readonly localStorageService : LocalStorageServiceService,
+               private readonly sesionStorageService : SesionStorageService,
                ) { }
 
   ngOnInit(): void {
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
                         userRol : successfullMsg.response.userRol
                   }
                   this.localStorageService.setUserNameLogged( userLogged );
+                  this.sesionStorageService.setUserLogged( userLogged );
                   //for practice purpose
                   this.router.navigate(["/main-page"],{queryParams: { userRol:  successfullMsg.response.userRol } })
                 }

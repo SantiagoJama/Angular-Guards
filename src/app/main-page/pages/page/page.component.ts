@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserLoggedDTO } from 'src/app/global-services/dtos/userLoggedData.dto';
-import { LocalStorageServiceService } from 'src/app/global-services/local-storage-service.service';
+import { LocalStorageServiceService } from 'src/app/global-services/local-storage-service/local-storage.service';
+import { SesionStorageService } from 'src/app/global-services/sesion-storage-service/sesion-storage.service';
 
 @Component({
   selector: 'app-page',
@@ -12,7 +13,13 @@ export class PageComponent implements OnInit {
 
   public userLogged! : string;
   constructor( private readonly route : ActivatedRoute,
-               private readonly localStorageService : LocalStorageServiceService) { }
+               private readonly router : Router,
+               private readonly localStorageService : LocalStorageServiceService,
+               private readonly sesionStorageService : SesionStorageService
+               ) {
+
+    if( !this.sesionStorageService.isUserLoggedSessionActive() ) this.router.navigate(['/login']); 
+  }
 
   ngOnInit(): void {
     /// get another value by queryParams
@@ -20,8 +27,11 @@ export class PageComponent implements OnInit {
     //     .subscribe(( params : Params) =>{
     //       this.userLogged = params['user'];
     //     })
+    
     this.userLogged = this.localStorageService.getUserNameLogged().name;
 
   }
+
+  
 
 }

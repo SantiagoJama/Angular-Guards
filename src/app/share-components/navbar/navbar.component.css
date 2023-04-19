@@ -1,0 +1,21 @@
+
+.navbar{
+    background-color: rgb(63, 63, 207);
+}
+.nav-link{
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 600;
+}
+.nav-link:hover{
+    background-color: rgb(75, 75, 184);
+    cursor: pointer;
+}
+.nav-items-links-container{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+    align-items: flex-end;
+    justify-content: flex-end;
+    
+}
