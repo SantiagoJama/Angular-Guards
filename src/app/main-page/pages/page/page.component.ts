@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { UserLoggedDTO } from 'src/app/global-services/dtos/userLoggedData.dto';
+import { LocalStorageServiceService } from 'src/app/global-services/local-storage-service.service';
 
 @Component({
   selector: 'app-page',
@@ -9,13 +11,17 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class PageComponent implements OnInit {
 
   public userLogged! : string;
-  constructor( private readonly route : ActivatedRoute) { }
+  constructor( private readonly route : ActivatedRoute,
+               private readonly localStorageService : LocalStorageServiceService) { }
 
   ngOnInit(): void {
-    this.route.queryParams
-        .subscribe(( params : Params) =>{
-          this.userLogged = params['user'];
-        })
+    /// get another value by queryParams
+    // this.route.queryParams
+    //     .subscribe(( params : Params) =>{
+    //       this.userLogged = params['user'];
+    //     })
+    this.userLogged = this.localStorageService.getUserNameLogged().name;
+
   }
 
 }

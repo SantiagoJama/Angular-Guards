@@ -4,6 +4,8 @@ import { LoginService } from './services/login.service';
 import { loginBodyRequestDTO } from './dtos/loginBodyRequest.dto';
 import { loginResponseDTO } from './dtos/loginResponse.dto';
 import {  Router } from '@angular/router';
+import { LocalStorageServiceService } from '../global-services/local-storage-service.service';
+import { UserLoggedDTO } from '../global-services/dtos/userLoggedData.dto';
 
 @Component({
   selector: 'app-login',
@@ -15,21 +17,20 @@ export class LoginComponent implements OnInit {
    public internalOrServiceProblems : boolean = false;
    public loginResponse! : string;
 
-  constructor( private readonly loginService : LoginService, private readonly router : Router) { }
+  constructor( private readonly loginService : LoginService, 
+               private readonly router : Router,
+               private readonly localStorageService : LocalStorageServiceService
+               ) { }
 
   ngOnInit(): void {
   }
 
   /**
-   *
-   * @param loginForm
+   * Este método realiza el login hacía la página principal o home
+   * @param loginForm : NgForm -> Contiene la credenciales ingresadas por el usuario
    */
   login( loginForm : NgForm ) : void {
-    //newDeviceForm.value.formBrandDevice
-    console.log( loginForm.value.userName);
-    console.log( loginForm.value.userPassword);
-
-    let loginBodyRequest : loginBodyRequestDTO = {
+    const loginBodyRequest : loginBodyRequestDTO = {
        userName : loginForm.value.userName,
        userPassword : loginForm.value.userPassword
     }
@@ -43,7 +44,13 @@ export class LoginComponent implements OnInit {
                   this.loginResponse = successfullMsg.response.message;
                 }else{
                   this.areCredentialsIncorrect = false;
-                  this.router.navigate(["/main-page"],{queryParams: { user: 'Santiago' } })
+                  const userLogged : UserLoggedDTO = {
+                        name : loginForm.value.userName,
+                        userRol : successfullMsg.response.userRol
+                  }
+                  this.localStorageService.setUserNameLogged( userLogged );
+                  //for practice purpose
+                  this.router.navigate(["/main-page"],{queryParams: { userRol:  successfullMsg.response.userRol } })
                 }
           },
           error : ( e : loginBodyRequestDTO )=>{

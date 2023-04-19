@@ -10,14 +10,37 @@ import { loginBodyRequestDTO } from '../dtos/loginBodyRequest.dto';
   providedIn: 'root'
 })
 export class LoginService {
-  private testUserName = "sant";
-  private testUserPassword = "9090";
+  private readonly testUserName : string = "sant";
+  private readonly testUserPassword : string = "9090";
+  private readonly secondUserName : string = "jama";
+  private readonly secondUserPassword : string = "1010"
+  private readonly adminUserName : string = "Santiago";
+  private readonly adminUserPassword : string = "Santi";
 
-  private successfulResponse : loginResponseDTO ={
+  
+  //===================== MOCK ==================================
+  private successfulResponseForTestUser : loginResponseDTO ={
     code : "200",
     status : "OK",
     response : {
-      message : "Credenciales correctas"
+      message : "Credenciales correctas",
+      userRol : "TestUser"
+    }
+  };
+  private successfulResponseForSecondUser : loginResponseDTO ={
+    code : "200",
+    status : "OK",
+    response : {
+      message : "Credenciales correctas",
+      userRol : "SecondUser"
+    }
+  };
+  private successfulResponseForAdminUser : loginResponseDTO ={
+    code : "200",
+    status : "OK",
+    response : {
+      message : "Credenciales correctas",
+      userRol : "AdminUser"
     }
   };
 
@@ -25,28 +48,41 @@ export class LoginService {
     code : "-2",
     status : "Not OK",
     response : {
-      message : "Credenciales incorrectas"
+      message : "Credenciales incorrectas",
+      userRol : "Not user Rol"
     }
   };
+  //============================ FIN MOCK=======================
 
   constructor( private readonly http : HttpClient) { }
 
 
-
+  /**
+   * Este servicio raliza la petición para consultar que las credenciales ingresadas por el usuario sean validas
+   * @param bodyRequest : loginBodyRequestDTO -> Objeto con las credenciales envíadas por el usuario
+   * @returns 
+   */
   loginAccess( bodyRequest : loginBodyRequestDTO ) : Observable<loginResponseDTO>{
 
     let {userName, userPassword} = bodyRequest;
-    if( userName == this.testUserName && userPassword == this.testUserPassword){
+    if( userName == this.testUserName && userPassword == this.testUserPassword ){
       return of(
-        this.successfulResponse
+        this.successfulResponseForTestUser
       )
-    }else{
+    }else if( userName == this.secondUserName && userPassword == this.secondUserPassword){
+      return of(
+        this.successfulResponseForSecondUser
+      )
+    } else if( userName == this.adminUserName && userPassword == this.adminUserPassword){
+      return of(
+        this.successfulResponseForAdminUser 
+      )
+    }
+    else{
       return of (
         this.failedResponse
       )
     }
-
-
   }
 
 

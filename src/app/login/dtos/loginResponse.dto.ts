@@ -5,6 +5,7 @@ export interface loginResponseDTO {
 }
 
 export interface serviceResponse{
-    message : string
+    message : string,
+    userRol : string,
 }
 
